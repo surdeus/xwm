@@ -1,0 +1,4 @@
+#!/bin/env rc
+# The script to run the environment shorter than I do.
+exec startx $home/lib/xinitrc xwm
+
