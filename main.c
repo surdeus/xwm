@@ -969,6 +969,7 @@ void
 focusmon(const Arg *arg)
 {
 	Monitor *m;
+	Client *c;
 
 	if (!mons->next)
 		return;
@@ -977,6 +978,8 @@ focusmon(const Arg *arg)
 	unfocus(selmon->sel, 0);
 	selmon = m;
 	focus(NULL);
+	if(c = selmon->sel)
+		XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w/2, c->h/2);
 }
 
 void
@@ -1026,6 +1029,8 @@ focusstack(const Arg *arg)
 	}
 	if(c){
 		focus(c);
+		if(arg->b && (c = selmon->sel))
+			XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w/2, c->h/2);
 		restack(selmon);
 	}
 }

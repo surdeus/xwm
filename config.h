@@ -147,8 +147,8 @@ static Key keys[] = {
 	{ MODKEY, XK_Return, spawn, {.v = dvpkbdcmd} }, /* Dvorak programmer. */
 	{ MODKEY, XK_x, killcurclient, {0} }, /* Close current window. */
 	{ MODKEY,  XK_b, togglebar, {0} }, /* Toggle bar with tags and other. */
-	{ MODKEY, XK_j, focusstack, {.i = +1 } }, /* Change focus via keyboard(Next). */
-	{ MODKEY, XK_k, focusstack, {.i = -1 } }, /* Change focus via keyboard(Previous). */
+	{ MODKEY, XK_j, focusstack, {.i = +1, .b=1 } }, /* Change focus via keyboard(Next). */
+	{ MODKEY, XK_k, focusstack, {.i = -1, .b=1 } }, /* Change focus via keyboard(Previous). */
 	{ MODKEY, XK_i, incnmaster, {.i = +1 } }, /* Increase size of window table stack. */
 	{ MODKEY,  XK_d, incnmaster, {.i = -1 } }, /* Decrease size of window table stack. */
 	{ MODKEY, XK_h, setmfact, {.f = -0.05} }, /* Decrease master window size. */
@@ -232,8 +232,8 @@ static Button buttons[] = {
 	{ ClkClientWin, MODKEY|ControlMask, Button4, scrolldeskvertical, {.i = +100, .b = 0} },
 
 	/* Changing focus. */
-	{ ClkWinTitle, 0, Button4, focusstack, {.i = +1 } }, 
-	{ ClkWinTitle, 0, Button5, focusstack, {.i = -1 } }, 
+	{ ClkWinTitle, 0, Button4, focusstack, {.i = +1, .b=0 } }, 
+	{ ClkWinTitle, 0, Button5, focusstack, {.i = -1, .b=0 } }, 
 
 	/* Calling terminals. */
 	{ ClkRootWin, 0, Button2, quit, {.i = 1 } },
