@@ -82,7 +82,7 @@ static char menumon[] = "0" ;
 #define NATIVE_KB_MAP "ru"
 
 /* Option. */
-#define KB_OPTION "grp:alt_space_toggle,caps:escape"
+#define KB_OPTION "grp:alt_space_toggle,caps:escape,ctrl:swap_lalt_lctl,ctrl:swap_ralt_rctl"
 #define KB_DVORAK_COMPOSE_OPTION "compose:ralt"
 
 /* Dvorak. */
