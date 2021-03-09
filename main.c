@@ -299,6 +299,7 @@ static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void zoom(const Arg *arg);
 uint isCancelClickGestureDone(void);
+static void togglefullscreen(const Arg *arg);
 
 /* Variables. */
 static const char broken[] = "broken" ;
@@ -1778,6 +1779,14 @@ setfullscreen(Client *c, int fullscreen)
 		resizeclient(c, c->x, c->y, c->w, c->h);
 		arrange(c->mon);
 	}
+}
+
+void
+togglefullscreen(const Arg *arg)
+{
+	Client *c = selmon->sel ;
+	if(c->isfullscreen) setfullscreen(c, 0) ;
+	else setfullscreen(c, 1) ;
 }
 
 void

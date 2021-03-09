@@ -165,6 +165,7 @@ static Key keys[] = {
 	{ MODKEY, XK_m, setlayout, {.v = &layouts[LayoutMonocle]} }, /* Maximized layout. */
 	{ MODKEY|ShiftMask, XK_space,  setlayout, {0} },  /* Toggle layout. */
 	{ MODKEY, XK_space,  togglefree, {0} },  /* Change between floated and unfloated statement. */
+	{ MODKEY|ShiftMask, XK_f,  togglefullscreen, {0} },
 	{ MODKEY, XK_0, view, {.ui = ~0 } },  /* Toggle all tags. */
 	{ MODKEY|ShiftMask, XK_0, tag,  {.ui = ~0 } }, /* Move window to the next tag. */
 
