@@ -121,8 +121,8 @@ static char *rccmd[] = SHCMD( SETWMNAME("Hello, master `{whoami}") ";" \
 static char *runcmd[] = SHCMD(" eval `{echo -n | xmen -m $1 -p $prompt } ") ; /* Menu run. */
 static char *lockcmd[] = {"xlck", 0} ;
 static char *outruncmd[] = SHCMD(SETWMNAME("`{ eval `{echo -n | xmen -m $1 -p $prompt } }")) ; /* Set WM name to output of command. */
-static char *termcmd[] = {"xmux", "-txmux", "rc", "-l", 0} ; /* Terminal run. */
-static char *termtcmd[] = {"xtrm", "rc", "-l", 0} ; /* Text buffer terminal to run. */
+static char *termcmd[] = {"xmux", "-txmux", "hackrc", 0} ; /* Fancy terminal run. */
+static char *stermcmd[] = {"xtrm", "rc", "-l", 0} ; /* Simpler terminal to run. */
 static char *plumbcmd[] = SHCMD("url=`{eval echo `{xsel}} ; exec  xplumb $\"url") ;
 
 /* Keyboard layouts. */
@@ -135,7 +135,7 @@ static Key keys[] = {
 	/* Modifier, key, function, argument. */
 	/* Program spawners. */
 	{ MODKEY|ShiftMask, XK_Return, spawn, {.v = termcmd} }, /* Terminal. */
-	{ MODKEY|ShiftMask, XK_t, spawn, {.v = termtcmd} }, /* Text buffer terminal. */
+	{ MODKEY|ShiftMask, XK_t, spawn, {.v = stermcmd} }, /* Text buffer terminal. */
 	{ MODKEY|ShiftMask, XK_r, spawn, {.v = runcmd} }, /* Run CMD. (dmenu most the time) */
 	{ MODKEY|ShiftMask, XK_c, spawn, {.v = outruncmd} }, /* Run CMD and set it's output to WMname. */
 	{ MODKEY|ShiftMask, XK_p, spawn, {.v = plumbcmd} }, /* Plumber. */
@@ -238,7 +238,7 @@ static Button buttons[] = {
 
 	/* Calling terminals. */
 	{ ClkRootWin, 0, Button2, quit, {.i = 1 } },
-	{ ClkStatusText, 0, Button2, spawn, {.v = termtcmd } },
+	{ ClkStatusText, 0, Button2, spawn, {.v = stermcmd } },
 
 	/* Moving window by mouse. */
 	{ ClkClientWin, MODKEY, Button1, movemouse, {0} },
