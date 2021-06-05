@@ -150,6 +150,7 @@ static Key keys[] = {
 	{ MODKEY, XK_j, focusstack, {.i = +1, .b=1 } }, /* Change focus via keyboard(Next). */
 	{ MODKEY, XK_k, focusstack, {.i = -1, .b=1 } }, /* Change focus via keyboard(Previous). */
 	{ MODKEY, XK_i, incnmaster, {.i = +1 } }, /* Increase size of window table stack. */
+	{ MODKEY,  XK_u, incnmaster, {.i = 0 } }, /* Set nmaster to standard value. */
 	{ MODKEY,  XK_d, incnmaster, {.i = -1 } }, /* Decrease size of window table stack. */
 	{ MODKEY, XK_h, setmfact, {.f = -0.05} }, /* Decrease master window size. */
 	{ MODKEY, XK_l, setmfact, {.f = +0.05} }, /* Increase master window size. */

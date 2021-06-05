@@ -1147,8 +1147,15 @@ grabkeys(void)
 void
 incnmaster(const Arg *arg)
 {
-	selmon->taglt[selmon->viewtag].nmaster =
-		selmon->nmaster = MAX(selmon->nmaster + arg->i, 0);
+	Monitor *m = selmon ;
+
+	if(!arg->i){
+		m->taglt[m->viewtag].nmaster = m->nmaster = 1 ;
+	}else if( arg->i+m->nmaster <= nClients(m, IsTile|IsVisible) ){ 
+		m->taglt[m->viewtag].nmaster =
+			m->nmaster = MAX(m->nmaster + arg->i, 0);
+	}
+
 	arrange(selmon);
 }
 
