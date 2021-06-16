@@ -1148,12 +1148,24 @@ void
 incnmaster(const Arg *arg)
 {
 	Monitor *m = selmon ;
+	int n, i, newval;
+	i = arg->i ;
 
-	if(!arg->i){
+	if(!i){
 		m->taglt[m->viewtag].nmaster = m->nmaster = 1 ;
-	}else if( arg->i+m->nmaster <= nClients(m, IsTile|IsVisible) ){ 
-		m->taglt[m->viewtag].nmaster =
-			m->nmaster = MAX(m->nmaster + arg->i, 0);
+	}else{ 
+		n = nClients(m, IsTile|IsVisible) ;
+		newval = m->nmaster + i ;
+		if(n<newval){
+			m->taglt[m->viewtag].nmaster =
+				m->nmaster = 1 ;
+		} else if(newval<0){
+			m->taglt[m->viewtag].nmaster =
+				m->nmaster = n + i ;
+		} else {
+			m->taglt[m->viewtag].nmaster =
+				m->nmaster = MAX(m->nmaster + arg->i, 0) ;
+		}
 	}
 
 	arrange(selmon);
