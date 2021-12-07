@@ -51,6 +51,7 @@ static const Layout layouts[] = {
 	[LayoutTile] = { "[T]", tile }, /* Tiled layout. */
 	[LayoutMonocle] = { "[M]", monocle }, /* Maximized layout. */
 	[LayoutSplit] = {"[S]", split},  /* Split layout. */
+	[LayoutRootwin] = {"[R]", rootwin},
 } ;
 
 /* Key definitions. */
@@ -164,6 +165,7 @@ static Key keys[] = {
 	{ MODKEY, XK_s, setlayout, {.v = &layouts[LayoutSplit]}}, /* Split layout. */
 	{ MODKEY, XK_f, setlayout, {.v = &layouts[LayoutFloating]} }, /* Floating layout. */
 	{ MODKEY, XK_m, setlayout, {.v = &layouts[LayoutMonocle]} }, /* Maximized layout. */
+	{ MODKEY, XK_w, setlayout, {.v = &layouts[LayoutRootwin]} }, /* Layout with one window in mid. */
 	{ MODKEY|ShiftMask, XK_space,  setlayout, {0} },  /* Toggle layout. */
 	{ MODKEY, XK_space,  togglefree, {0} },  /* Change between floated and unfloated statement. */
 	{ MODKEY|ShiftMask, XK_f,  togglefullscreen, {0} },
@@ -247,9 +249,6 @@ static Button buttons[] = {
 	/* Close current window. */
 	{ ClkClientWin, MODKEY|ShiftMask, Button2, killcurclient, {0}  },
 	{ ClkWinTitle, 0, Button2, killclick, {0}  },
-
-	/* Focus on window under cursor. */
-	{ ClkClientWin, MODKEY, Button2, focuscurwin, {0} },
 
 	/* Up window on the stack of view. */
 	{ ClkClientWin, MODKEY, Button4, raisefocused, {0} },

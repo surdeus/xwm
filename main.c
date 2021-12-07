@@ -67,7 +67,7 @@ enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
 enum { WMProtocols, WMDelete, WMState, WMTakeFocus, WMLast } ; /* Default atoms. */
 enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
        ClkClientWin, ClkRootWin, ClkLast } ; /* Clicks. */
-enum {LayoutFloating, LayoutTile, LayoutMonocle, LayoutSplit, LayoutLast} ;
+enum {LayoutFloating, LayoutTile, LayoutMonocle, LayoutSplit, LayoutRootwin, LayoutLast} ;
 enum {SideNo, SideRight, SideLeft, SideUp, SideDown} ;
 enum {
 	IsAny = ~0,
@@ -240,6 +240,7 @@ static void pop(Client *);
 static void propertynotify(XEvent *e);
 static void quit(const Arg *arg);
 static Monitor *recttomon(int x, int y, int w, int h);
+static void rootwin(Monitor *m);
 static void resize(Client *c, int x, int y, int w, int h, int interact);
 static void resizeclient(Client *c, int x, int y, int w, int h);
 static void resizemouse(const Arg *arg);
@@ -2074,7 +2075,10 @@ tile(Monitor *m)
 	}else{
 		mw = m->ww ;
 	}
-	for (i = my = ty = 0, c = nextclient(m->clients, IsTile|IsVisible); c; c = nextclient(c->next, IsTile|IsVisible), i++){
+	for (i = my = ty = 0, c = nextclient(m->clients, IsTile|IsVisible);
+			c;
+			c = nextclient(c->next, IsTile|IsVisible), ++i
+	){
 		if( i < m->nmaster ){
 			h = (m->wh - my) / (MIN(n, m->nmaster) - i) ;
 			resize(c,
@@ -2091,6 +2095,69 @@ tile(Monitor *m)
 				0
 			);
 			ty += HEIGHT(c) ;
+		}
+	}
+}
+
+void
+rootwin(Monitor *m)
+{
+	int i, n, nmaster, colw,
+		rootx, rooty, rootw, rooth,
+		lwinh, rwinh,
+		wx, wy, ww, wh;
+	float mfact;
+	Client *c;
+
+	if ( !(n=nClients(m, IsVisible|IsTile)) ) return ;
+	
+	nmaster = m->nmaster ; mfact = m->mfact ;
+	wx = m->wx ; wy = m->wy ; ww = m->ww ; wh = m->wh ;
+	rootx = wx ; rooty = wy ; rootw = ww ; rooth = wh ;
+
+	if(n == 1){ /* Just root win. */
+		c = nextclient(m->clients, IsTile|IsVisible) ;
+		resize(c, rootx, rooty, rootw, rooth, 0);
+		return;
+	}
+	--n;
+	/* First it is space that spare windows will take. */	
+	colw = (int)((float)ww * (1-mfact)) ; 
+	rootw -= colw ;
+
+	if(nmaster){
+		if(nmaster < n ){/* Both. */
+			colw /= 2 ;
+			rootx += colw ;
+			lwinh = wh/nmaster ;
+			rwinh = wh/(n-nmaster) ;
+		} else { /* Left. */
+			rootx += colw ;
+			lwinh = wh/n ;
+		}
+	} else { /* Right. */
+		rwinh = wh/n ;
+	}
+	
+	c = nextclient(m->clients, IsTile|IsVisible) ;
+	resize(c, rootx, rooty, rootw, rooth, 0);
+	
+	for(i = 0, c = nextclient(c->next, IsTile|IsVisible) ;
+			c;
+			c = nextclient(c->next, IsTile|IsVisible), ++i
+	){
+		if(i < nmaster){ /* Left. */
+			resize(c,
+				wx + c->bw, wy + c->bw + (lwinh + c->bw*2)*i,
+				colw - c->bw*2, lwinh - c->bw*2,
+				0
+			);
+		} else { /* Right. */
+			resize(c,
+				rootx + rootw + c->bw*2, wy + (rwinh + c->bw*2)*(i-nmaster),
+				colw - c->bw, rwinh - c->bw*2,
+				0
+			);
 		}
 	}
 }
