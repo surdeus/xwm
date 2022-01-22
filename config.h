@@ -119,7 +119,16 @@ static char *rccmd[] = SHCMD( SETWMNAME("Hello, master `{whoami}") ";" \
 	XSETROOT_SOLID_GRAY ) ;
 
 /* Spawners. */
-static char *runcmd[] = SHCMD(" eval `{echo -n | xmen -m $1 -p $prompt } ") ; /* Menu run. */
+static char *runcmd[] = SHCMD(
+	"eval `{goblin echo -d '\n'"
+	/* Standard programs. */
+	" firefox"
+	" chromium"
+	" gimp"
+	" mypaint"
+	" olive-editor"
+	"| xmen -m $1 -p $prompt}"
+) ; /* Menu run. */
 static char *lockcmd[] = {"xlck", 0} ;
 static char *outruncmd[] = SHCMD(SETWMNAME("`{ eval `{echo -n | xmen -m $1 -p $prompt } }")) ; /* Set WM name to output of command. */
 static char *termcmd[] = {"xmux", "-txmux", "hackrc", 0} ; /* Fancy terminal run. */
