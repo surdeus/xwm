@@ -128,6 +128,7 @@ static char *runcmd[] = SHCMD(
 	" mypaint"
 	" olive-editor"
 	" cadence"
+	" Telegram"
 	"| xmen -m $1 -p $prompt}"
 ) ; /* Menu run. */
 static char *lockcmd[] = {"xlck", 0} ;
