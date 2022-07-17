@@ -1,2 +1,3 @@
+MKSHELL=sh
 <mkconfig
-<$MKINCDIR/cbuild
+<$(MKINCDIR)/cbuild

@@ -1,16 +1,16 @@
-<$HOME/app/mk/inc/config
+<$(HOME)/app/mk/inc/config
 PROGNAME = xwm
 VERSION = 7.0
 INCS = $X11INC $FTINC
 LIBS = $X11LIB $FTLIB $XFTLIB
 INCS = $INCS $XININC
-DEFS = -DNAME=\"$PROGNAME\"\
-	-DVERSION=\"$VERSION\"\
-	-D_DEFAULT_SOURCE\
-	-D_BSD_SOURCE\
+DEFS = -DNAME=\"$PROGNAME\" \
+	-DVERSION=\"$VERSION\" \
+	-D_DEFAULT_SOURCE \
+	-D_BSD_SOURCE \
 	-D_POSIX_C_SOURCE=200809L
 # For Xinerama.
 LIBS = $LIBS $XINLIB
 DEFS = $DEFS -DXINERAMA
-CFILES = `{ls *.c}
-HFILES = `{ls *.h}
+CFILES = drw.c main.c util.c
+HFILES = config.h drw.h util.h
