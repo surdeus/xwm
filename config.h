@@ -116,7 +116,8 @@ static char *rccmd[] = SHCMD( SETWMNAME("Hello, master `{whoami}") ";" \
 	SET_DVORAK_KB_LT ";" \
 	SET_KB_OPTIONS ";" \
 	XRESOURCES_MERGE ";"\
-	XSETROOT_SOLID_GRAY ) ;
+	XSETROOT_SOLID_GRAY ";"
+	"which VBoxClient-all && VBoxClient-all & ;") ;
 
 /* Spawners. */
 static char *runcmd[] = SHCMD(
