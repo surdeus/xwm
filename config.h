@@ -136,7 +136,7 @@ static char *runcmd[] = SHCMD(
 ) ; /* Menu run. */
 static char *lockcmd[] = {"xlck", 0} ;
 static char *outruncmd[] = SHCMD(SETWMNAME("`{ eval `{echo -n | xmen -m $1 -p $prompt } }")) ; /* Set WM name to output of command. */
-static char *termcmd[] = {"xmux", "-txmux", "hackrc", 0} ; /* Fancy terminal run. */
+static char *termcmd[] = SHCMD("xmux -txmux $PERSONAL_SHELL") ; /* Fancy terminal run. */
 static char *stermcmd[] = {"xtrm", "rc", "-l", 0} ; /* Simpler terminal to run. */
 static char *plumbcmd[] = SHCMD("url=`{eval echo `{xsel}} ; exec  xplumb $\"url") ;
 
