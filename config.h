@@ -117,7 +117,7 @@ static char *rccmd[] = SHCMD( SETWMNAME("Hello, master `{whoami}") ";" \
 	SET_KB_OPTIONS ";" \
 	XRESOURCES_MERGE ";"\
 	XSETROOT_SOLID_GRAY ";"
-	"which VBoxClient-all && VBoxClient-all & ;") ;
+	"if( which VBoxClient-all ) VBoxClient-all & ;") ;
 
 /* Spawners. */
 static char *runcmd[] = SHCMD(
@@ -138,7 +138,7 @@ static char *runcmd[] = SHCMD(
 static char *lockcmd[] = {"xlck", 0} ;
 static char *outruncmd[] = SHCMD(SETWMNAME("`{ eval `{echo -n | xmen -m $1 -p $prompt } }")) ; /* Set WM name to output of command. */
 static char *termcmd[] = SHCMD("xmux -txmux $PERSONAL_SHELL") ; /* Fancy terminal run. */
-static char *stermcmd[] = {"xtrm", "rc", "-l", 0} ; /* Simpler terminal to run. */
+static char *stermcmd[] = SHCMD("xtrm $PERSONAL_SHELL") ; /* Simpler terminal to run. */
 static char *plumbcmd[] = SHCMD("url=`{eval echo `{xsel}} ; exec  xplumb $\"url") ;
 
 /* Keyboard layouts. */
